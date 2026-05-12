@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إنشاء QR Code | QR Smart Links</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="create">
+  <header class="site-header compact">
+    <nav class="nav-shell">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><i class="fa-solid fa-qrcode"></i></span>
+        <span>QR Smart Links</span>
+      </a>
+      <div class="nav-actions">
+        <a class="nav-link" href="dashboard.html">لوحة التحكم</a>
+        <a class="btn btn-ghost btn-sm" href="index.html">الرئيسية</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="app-page">
+    <div class="container app-layout">
+      <section class="builder-panel">
+        <div class="page-title">
+          <p class="eyebrow">إنشاء صفحة روابط</p>
+          <h1>صمم صفحة البروفايل وأنشئ QR Code</h1>
+        </div>
+
+        <form id="profileForm" class="builder-form" novalidate>
+          <section class="form-section" aria-labelledby="step-profile">
+            <div class="step-heading">
+              <span class="step-number">1</span>
+              <div>
+                <h2 id="step-profile">بيانات الصفحة</h2>
+                <p>أضف الاسم والوصف والألوان التي ستظهر في صفحة الروابط.</p>
+              </div>
+            </div>
+            <div class="form-grid two">
+              <label class="field">
+                <span>اسم الشخص أو النشاط التجاري <b>*</b></span>
+                <input id="titleInput" name="title" type="text" placeholder="مثال: شركة النور للتسويق" maxlength="80" required>
+              </label>
+              <label class="field">
+                <span>وصف قصير</span>
+                <input id="descriptionInput" name="description" type="text" placeholder="سطر مختصر يظهر تحت الاسم" maxlength="160">
+              </label>
+              <label class="field span-2">
+                <span>رابط صورة أو لوجو اختياري</span>
+                <input id="logoUrlInput" name="logoUrl" type="url" placeholder="https://example.com/logo.png">
+                <small>استخدم رابط صورة فقط. لا يتم رفع الصور داخل QR حتى لا يصبح الرابط طويلًا.</small>
+              </label>
+              <label class="field color-field">
+                <span>اللون الأساسي</span>
+                <input id="primaryColorInput" name="primaryColor" type="color" value="#2563EB">
+              </label>
+              <label class="field color-field">
+                <span>لون الخلفية</span>
+                <input id="backgroundColorInput" name="backgroundColor" type="color" value="#F8FAFC">
+              </label>
+              <label class="field span-2">
+                <span>نمط التصميم</span>
+                <select id="themeInput" name="theme">
+                  <option value="minimal">Minimal</option>
+                  <option value="modern" selected>Modern</option>
+                  <option value="business">Business</option>
+                  <option value="dark">Dark</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="form-section" aria-labelledby="step-social">
+            <div class="step-heading">
+              <span class="step-number">2</span>
+              <div>
+                <h2 id="step-social">روابط السوشيال ميديا الجاهزة</h2>
+                <p>ضع الرابط أو الرقم في الكارت المناسب، وسيظهر في المعاينة عند تفعيله.</p>
+              </div>
+            </div>
+            <div id="socialInputs" class="social-grid"></div>
+          </section>
+
+          <section class="form-section" aria-labelledby="step-custom">
+            <div class="step-heading with-action">
+              <div class="heading-inline">
+                <span class="step-number">3</span>
+                <div>
+                  <h2 id="step-custom">روابط مخصصة</h2>
+                  <p>أضف روابط مثل قائمة الطعام، الحجز، المتجر، أو ملف PDF.</p>
+                </div>
+              </div>
+              <button type="button" id="addCustomLinkBtn" class="btn btn-secondary btn-sm">
+                <i class="fa-solid fa-plus"></i>
+                إضافة رابط
+              </button>
+            </div>
+            <div id="customLinksList" class="custom-list"></div>
+            <div id="customEmpty" class="empty-state small">
+              <i class="fa-solid fa-link"></i>
+              <span>لا توجد روابط مخصصة بعد.</span>
+            </div>
+          </section>
+
+          <section class="form-section" aria-labelledby="step-actions">
+            <div class="step-heading">
+              <span class="step-number">4</span>
+              <div>
+                <h2 id="step-actions">إنشاء QR Code</h2>
+                <p>يتم ضغط البيانات ووضعها داخل الرابط: profile.html?data=ENCODED_DATA</p>
+              </div>
+            </div>
+            <div id="validationBox" class="validation-box" hidden></div>
+            <div class="action-row">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-qrcode"></i>
+                إنشاء QR Code
+              </button>
+              <button type="button" id="saveDraftBtn" class="btn btn-secondary">
+                <i class="fa-regular fa-floppy-disk"></i>
+                حفظ كمسودة
+              </button>
+              <button type="button" id="exportJsonBtn" class="btn btn-ghost">
+                <i class="fa-solid fa-file-export"></i>
+                تحميل JSON
+              </button>
+              <label class="btn btn-ghost file-button">
+                <i class="fa-solid fa-file-import"></i>
+                استيراد JSON
+                <input id="importJsonInput" type="file" accept="application/json">
+              </label>
+            </div>
+          </section>
+        </form>
+      </section>
+
+      <aside class="preview-panel" aria-label="المعاينة و QR Code">
+        <div class="sticky-stack">
+          <section class="preview-card">
+            <div class="panel-title">
+              <div>
+                <h2>المعاينة المباشرة</h2>
+                <p>الشكل النهائي لصفحة الزائر.</p>
+              </div>
+              <span class="status-pill" id="activeCountPill">0 روابط</span>
+            </div>
+            <div id="livePreview" class="profile-preview-shell"></div>
+          </section>
+
+          <section id="qrResult" class="qr-result-card" hidden>
+            <div class="panel-title">
+              <div>
+                <h2>QR Code جاهز</h2>
+                <p>الرابط يعمل من أي جهاز لأن البيانات داخله.</p>
+              </div>
+            </div>
+            <div id="qrWarning" class="warning-box" hidden></div>
+            <div id="qrCode" class="qr-code-box"></div>
+            <input id="profileUrlOutput" class="url-output" type="text" readonly>
+            <div class="qr-actions">
+              <button type="button" id="downloadQrBtn" class="btn btn-secondary">
+                <i class="fa-solid fa-download"></i>
+                تحميل PNG
+              </button>
+              <button type="button" id="copyUrlBtn" class="btn btn-secondary">
+                <i class="fa-solid fa-copy"></i>
+                نسخ الرابط
+              </button>
+              <a id="openProfileBtn" class="btn btn-primary" href="#" target="_blank" rel="noopener">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                فتح البروفايل
+              </a>
+              <button type="button" id="shareUrlBtn" class="btn btn-ghost">
+                <i class="fa-solid fa-share-nodes"></i>
+                مشاركة
+              </button>
+            </div>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="toastRoot" class="toast-root" aria-live="polite"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="js/social-config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/qr.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

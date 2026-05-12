@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Smart Links | أنشئ QR Code ذكي لروابطك</title>
+  <meta name="description" content="موقع عربي Frontend فقط لإنشاء QR Code ذكي يحتوي على صفحة روابط محفوظة بالكامل داخل URL.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-shell">
+      <a class="brand" href="index.html" aria-label="QR Smart Links">
+        <span class="brand-mark"><i class="fa-solid fa-qrcode"></i></span>
+        <span>QR Smart Links</span>
+      </a>
+      <div class="nav-actions">
+        <a class="nav-link" href="dashboard.html">لوحة التحكم</a>
+        <a class="btn btn-primary btn-sm" href="create.html">ابدأ الآن</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><i class="fa-solid fa-bolt"></i> Frontend فقط، بدون باك إند</p>
+          <h1>أنشئ QR Code ذكي لروابطك في دقائق</h1>
+          <p class="hero-text">اجمع كل روابطك في صفحة واحدة وشاركها عبر QR Code يعمل من أي جهاز بدون باك إند.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-lg" href="create.html">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              ابدأ الآن
+            </a>
+            <a class="btn btn-ghost btn-lg" href="dashboard.html">
+              <i class="fa-regular fa-folder-open"></i>
+              صفحاتي المحفوظة
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="معاينة منتج QR Smart Links">
+          <div class="hero-phone">
+            <div class="phone-top"></div>
+            <div class="mini-profile">
+              <div class="mini-avatar"><i class="fa-solid fa-store"></i></div>
+              <h2>متجر النور</h2>
+              <p>كل روابط المتجر في مكان واحد</p>
+              <div class="mini-link"><i class="fa-brands fa-whatsapp"></i><span>واتساب</span></div>
+              <div class="mini-link"><i class="fa-brands fa-instagram"></i><span>إنستجرام</span></div>
+              <div class="mini-link"><i class="fa-solid fa-location-dot"></i><span>موقعنا</span></div>
+            </div>
+          </div>
+          <div class="qr-showcase" aria-hidden="true">
+            <div class="fake-qr">
+              <span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <strong>profile.html?data=...</strong>
+            <small>البيانات داخل الرابط نفسه</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">كل ما تحتاجه في واجهة واحدة</p>
+          <h2>مصمم لروابط شخصية وتجارية تعمل فورًا</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <i class="fa-solid fa-icons"></i>
+            <h3>أيقونات جاهزة للسوشيال ميديا</h3>
+            <p>شبكة منظمة لكل منصة مع ألوان وأيقونات واضحة.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-qrcode"></i>
+            <h3>إنشاء QR Code فوري</h3>
+            <p>اضغط إنشاء واحصل على QR قابل للتحميل مباشرة.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-link"></i>
+            <h3>كل البيانات داخل الرابط</h3>
+            <p>صفحة البروفايل تقرأ بياناتها من URL فقط.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-server"></i>
+            <h3>يعمل بدون Backend</h3>
+            <p>لا قاعدة بيانات، لا Firebase، ولا إعدادات خادم.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <h3>صفحة روابط احترافية للموبايل</h3>
+            <p>أزرار كبيرة وواضحة للزوار بعد مسح QR.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-download"></i>
+            <h3>تحميل QR Code كصورة PNG</h3>
+            <p>احفظ الصورة واستخدمها في المطبوعات أو المتجر.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-copy"></i>
+            <h3>نسخ الرابط ومشاركته بسهولة</h3>
+            <p>انسخ رابط البروفايل أو شاركه عبر Web Share API.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fa-solid fa-file-import"></i>
+            <h3>استيراد وتصدير JSON</h3>
+            <p>احتفظ بنسخة احتياطية للتعديل لاحقًا على نفس البيانات.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container cta-inner">
+        <div>
+          <h2>جاهز لإنشاء صفحة روابطك؟</h2>
+          <p>كل شيء يعمل مباشرة من المتصفح، والنتيجة قابلة للمشاركة من أي جهاز.</p>
+        </div>
+        <a class="btn btn-primary btn-lg" href="create.html">ابدأ إنشاء QR</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>QR Smart Links</span>
+      <span>Frontend فقط، البيانات محفوظة داخل رابط QR.</span>
+    </div>
+  </footer>
+</body>
+</html>

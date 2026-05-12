@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم المحلية | QR Smart Links</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="dashboard">
+  <header class="site-header compact">
+    <nav class="nav-shell">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><i class="fa-solid fa-qrcode"></i></span>
+        <span>QR Smart Links</span>
+      </a>
+      <div class="nav-actions">
+        <a class="nav-link" href="create.html">إنشاء QR</a>
+        <a class="btn btn-ghost btn-sm" href="index.html">الرئيسية</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="dashboard-page">
+    <div class="container">
+      <div class="page-title dashboard-title">
+        <div>
+          <p class="eyebrow">لوحة تحكم محلية</p>
+          <h1>الصفحات المحفوظة على هذا الجهاز</h1>
+        </div>
+        <a class="btn btn-primary" href="create.html">
+          <i class="fa-solid fa-plus"></i>
+          إنشاء صفحة جديدة
+        </a>
+      </div>
+
+      <div class="notice-box">
+        <i class="fa-solid fa-circle-info"></i>
+        <p>هذه الصفحات محفوظة على هذا الجهاز فقط، لكن QR Code نفسه يعمل من أي جهاز لأن البيانات محفوظة داخل الرابط.</p>
+      </div>
+
+      <div id="dashboardEmpty" class="empty-state">
+        <i class="fa-regular fa-folder-open"></i>
+        <h2>لا توجد صفحات محفوظة بعد</h2>
+        <p>أنشئ أول صفحة روابط، ثم احفظها لتظهر هنا.</p>
+        <a class="btn btn-primary" href="create.html">ابدأ الآن</a>
+      </div>
+
+      <div id="dashboardList" class="dashboard-list"></div>
+    </div>
+  </main>
+
+  <div id="confirmModal" class="modal-backdrop" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <h2 id="confirmTitle">تأكيد الحذف</h2>
+      <p>هل تريد حذف هذه الصفحة من هذا الجهاز؟ لا يؤثر ذلك على أي رابط QR تم مشاركته.</p>
+      <div class="modal-actions">
+        <button type="button" id="cancelDeleteBtn" class="btn btn-ghost">إلغاء</button>
+        <button type="button" id="confirmDeleteBtn" class="btn btn-danger">حذف</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastRoot" class="toast-root" aria-live="polite"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="js/social-config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/qr.js"></script>
+</body>
+</html>
