@@ -203,11 +203,9 @@
     warning.hidden = url.length <= 1800;
     warning.textContent = "البيانات كثيرة وقد يصبح QR صعب القراءة. حاول تقليل عدد الروابط أو حذف اللوجو.";
 
-    if (qrReady) {
-      const record = QRSmart.saveDraftToLocalStorage(data, url, state.currentDraftId);
-      state.currentDraftId = record.id;
-      QRSmart.showToast("تم إنشاء QR Code وحفظ الصفحة محليًا.", "success");
-    }
+    const record = QRSmart.saveDraftToLocalStorage(data, url, state.currentDraftId);
+    state.currentDraftId = record.id;
+    QRSmart.showToast(qrReady ? "تم إنشاء QR Code وحفظ الصفحة محليًا." : "تم إنشاء الرابط وحفظ الصفحة، لكن تعذر رسم QR Code.", qrReady ? "success" : "error");
   }
 
   function saveDraftOnly() {
