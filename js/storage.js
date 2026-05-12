@@ -66,6 +66,7 @@
       updatedAt: record.updatedAt || createdAt,
       linkCount: QRSmart.getActiveLinks(cleanData).length,
       profileUrl: QRSmart.generateProfileUrl(cleanData),
+      qrStyle: record.qrStyle || "scan",
       data: cleanData
     };
   }
@@ -79,7 +80,7 @@
     return normalized;
   }
 
-  function saveDraftToLocalStorage(data, url, existingId) {
+  function saveDraftToLocalStorage(data, url, existingId, options) {
     const profiles = readProfiles();
     const now = new Date().toISOString();
     const cleanData = QRSmart.sanitizeProfileData(data);
@@ -94,6 +95,7 @@
       updatedAt: now,
       linkCount: QRSmart.getActiveLinks(cleanData).length,
       profileUrl: generatedUrl,
+      qrStyle: (options && options.qrStyle) || "scan",
       data: cleanData
     };
 
@@ -189,7 +191,7 @@
     scratch.style.top = "0";
     document.body.appendChild(scratch);
 
-    const ready = QRSmart.generateQRCode(item.profileUrl, scratch);
+    const ready = QRSmart.generateQRCode(item.profileUrl, scratch, { style: item.qrStyle || "scan" });
     if (!ready) {
       scratch.remove();
       QRSmart.showToast("تعذر إنشاء QR لهذه الصفحة. حاول تقليل البيانات.", "error");

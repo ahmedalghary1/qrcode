@@ -161,6 +161,31 @@
             </div>
             <div id="qrWarning" class="warning-box" hidden></div>
             <div id="qrCode" class="qr-code-box"></div>
+            <div class="qr-style-picker" aria-label="اختيار شكل QR Code">
+              <span>شكل QR</span>
+              <div class="qr-style-options">
+                <button type="button" class="qr-style-option is-active" data-qr-style="scan">
+                  <i class="fa-solid fa-mobile-screen-button"></i>
+                  سريع للهواتف
+                </button>
+                <button type="button" class="qr-style-option" data-qr-style="rounded">
+                  <i class="fa-solid fa-square"></i>
+                  ناعم
+                </button>
+                <button type="button" class="qr-style-option" data-qr-style="dots">
+                  <i class="fa-solid fa-circle"></i>
+                  نقاط
+                </button>
+                <button type="button" class="qr-style-option" data-qr-style="frame">
+                  <i class="fa-regular fa-square"></i>
+                  إطار
+                </button>
+                <button type="button" class="qr-style-option" data-qr-style="classic">
+                  <i class="fa-solid fa-border-all"></i>
+                  كلاسيكي
+                </button>
+              </div>
+            </div>
             <input id="profileUrlOutput" class="url-output" type="text" readonly>
             <div class="qr-actions">
               <button type="button" id="downloadQrBtn" class="btn btn-secondary">
