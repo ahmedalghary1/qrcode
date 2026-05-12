@@ -1003,8 +1003,9 @@ img {
 
 .qr-code-box canvas,
 .qr-code-box img {
-  width: 230px;
-  height: 230px;
+  width: min(260px, 100%);
+  height: auto;
+  aspect-ratio: 1;
 }
 
 .url-output {

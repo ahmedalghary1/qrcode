@@ -125,6 +125,85 @@
     }
   }
 
+  const TYPE_TO_CODE = {
+    whatsapp: "w",
+    instagram: "ig",
+    tiktok: "tt",
+    facebook: "fb",
+    youtube: "yt",
+    snapchat: "sc",
+    linkedin: "li",
+    twitter: "x",
+    telegram: "tg",
+    pinterest: "pt",
+    website: "web",
+    phone: "ph",
+    email: "em",
+    location: "map",
+    "custom-single": "cs",
+    custom: "c"
+  };
+
+  const CODE_TO_TYPE = Object.keys(TYPE_TO_CODE).reduce((result, type) => {
+    result[TYPE_TO_CODE[type]] = type;
+    return result;
+  }, {});
+
+  function packProfileData(data) {
+    const profile = sanitizeProfileData(data || {});
+    const packed = {
+      v: 2,
+      t: profile.title
+    };
+
+    if (profile.description) packed.d = profile.description;
+    if (profile.logoUrl) packed.g = profile.logoUrl;
+    if (profile.primaryColor && profile.primaryColor !== "#2563EB") packed.p = profile.primaryColor;
+    if (profile.backgroundColor && profile.backgroundColor !== "#F8FAFC") packed.b = profile.backgroundColor;
+    if (profile.theme && profile.theme !== "modern") packed.h = profile.theme;
+
+    packed.l = getActiveLinks(profile).map((link) => {
+      const platform = getPlatformConfig(link.type);
+      const typeCode = TYPE_TO_CODE[link.type] || link.type;
+      const item = [typeCode, link.value];
+      if (link.type === "custom") {
+        item.push(link.label || "رابط مخصص");
+        item.push(link.icon || "link");
+      } else if (platform && link.label && link.label !== platform.label) {
+        item.push(link.label);
+      }
+      return item;
+    });
+
+    return packed;
+  }
+
+  function unpackProfileData(data) {
+    if (!data || data.v !== 2 || !Array.isArray(data.l)) return data;
+
+    return {
+      title: data.t || "",
+      description: data.d || "",
+      logoUrl: data.g || "",
+      primaryColor: data.p || "#2563EB",
+      backgroundColor: data.b || "#F8FAFC",
+      theme: data.h || "modern",
+      links: data.l.map((item) => {
+        const type = CODE_TO_TYPE[item[0]] || item[0];
+        const platform = getPlatformConfig(type);
+        const label = type === "custom" ? item[2] : (item[2] || (platform && platform.label) || "رابط");
+        return {
+          type,
+          label,
+          value: item[1] || "",
+          active: true,
+          icon: type === "custom" ? (item[3] || "link") : "",
+          valueKind: (platform && platform.valueKind) || (type === "email" ? "email" : "url")
+        };
+      })
+    };
+  }
+
   function stringToBase64Url(value) {
     const bytes = new TextEncoder().encode(value);
     let binary = "";
@@ -145,7 +224,7 @@
   }
 
   function encodeProfileData(data) {
-    const json = JSON.stringify(data);
+    const json = JSON.stringify(packProfileData(data));
     if (window.LZString && typeof window.LZString.compressToEncodedURIComponent === "function") {
       return `lz.${window.LZString.compressToEncodedURIComponent(json)}`;
     }
@@ -157,22 +236,22 @@
     if (!value) return null;
 
     if (value.startsWith("lz.") && window.LZString) {
-      return safeJsonParse(window.LZString.decompressFromEncodedURIComponent(value.slice(3)));
+      return unpackProfileData(safeJsonParse(window.LZString.decompressFromEncodedURIComponent(value.slice(3))));
     }
 
     if (value.startsWith("b64.")) {
-      return safeJsonParse(base64UrlToString(value.slice(4)));
+      return unpackProfileData(safeJsonParse(base64UrlToString(value.slice(4))));
     }
 
     if (window.LZString) {
-      const lzResult = safeJsonParse(window.LZString.decompressFromEncodedURIComponent(value));
+      const lzResult = unpackProfileData(safeJsonParse(window.LZString.decompressFromEncodedURIComponent(value)));
       if (lzResult) return lzResult;
     }
 
     try {
-      return safeJsonParse(base64UrlToString(value));
+      return unpackProfileData(safeJsonParse(base64UrlToString(value)));
     } catch (error) {
-      return safeJsonParse(decodeURIComponent(value));
+      return unpackProfileData(safeJsonParse(decodeURIComponent(value)));
     }
   }
 
@@ -350,6 +429,8 @@
   QRSmart.buildSocialLink = buildSocialLink;
   QRSmart.getActiveLinks = getActiveLinks;
   QRSmart.validateProfileData = validateProfileData;
+  QRSmart.packProfileData = packProfileData;
+  QRSmart.unpackProfileData = unpackProfileData;
   QRSmart.encodeProfileData = encodeProfileData;
   QRSmart.decodeProfileData = decodeProfileData;
   QRSmart.generateProfileUrl = generateProfileUrl;
