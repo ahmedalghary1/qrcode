@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/auth.js" data-auth="required"></script>
 </head>
 <body data-page="dashboard">
   <header class="site-header compact">
@@ -20,6 +21,10 @@
       <div class="nav-actions">
         <a class="nav-link" href="create.html">إنشاء QR</a>
         <a class="btn btn-ghost btn-sm" href="index.html">الرئيسية</a>
+        <button type="button" class="btn btn-ghost btn-sm" data-auth-logout>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          خروج
+        </button>
       </div>
     </nav>
   </header>
@@ -36,6 +41,29 @@
           إنشاء صفحة جديدة
         </a>
       </div>
+
+      <section class="dashboard-stats" aria-label="ملخص لوحة التحكم">
+        <article class="stat-card">
+          <span>المستخدمون</span>
+          <strong id="statsUsers">0</strong>
+          <small>حسب الصفحات المحفوظة محليًا</small>
+        </article>
+        <article class="stat-card">
+          <span>صفحات QR</span>
+          <strong id="statsProfiles">0</strong>
+          <small>روابط محفوظة على هذا الجهاز</small>
+        </article>
+        <article class="stat-card">
+          <span>إجمالي الروابط</span>
+          <strong id="statsLinks">0</strong>
+          <small>داخل كل صفحات QR</small>
+        </article>
+        <article class="stat-card">
+          <span>آخر تحديث</span>
+          <strong id="statsLastUpdate">-</strong>
+          <small>آخر تعديل محفوظ</small>
+        </article>
+      </section>
 
       <div class="notice-box">
         <i class="fa-solid fa-circle-info"></i>

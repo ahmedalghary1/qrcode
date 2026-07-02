@@ -1060,6 +1060,37 @@ img {
   align-items: center;
 }
 
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 0 18px;
+}
+
+.stat-card {
+  min-height: 132px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: grid;
+  align-content: space-between;
+  gap: 10px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.stat-card span,
+.stat-card small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.stat-card strong {
+  color: var(--text);
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
 .dashboard-list {
   display: grid;
   gap: 14px;
@@ -1163,6 +1194,62 @@ img {
 .profile-body {
   min-height: 100vh;
   background: var(--background);
+}
+
+.login-body {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.08)),
+    repeating-linear-gradient(90deg, rgba(37, 99, 235, 0.06) 0 1px, transparent 1px 74px),
+    #f8fafc;
+}
+
+.login-shell {
+  min-height: 100vh;
+  width: min(100% - 32px, 460px);
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  padding: 32px 0;
+}
+
+.login-card {
+  width: 100%;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.login-brand {
+  margin-bottom: 28px;
+}
+
+.login-heading h1 {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 5vw, 2.2rem);
+  line-height: 1.25;
+}
+
+.login-form {
+  display: grid;
+  gap: 14px;
+}
+
+.login-form .btn {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.auth-error {
+  margin: 0;
+  padding: 11px 12px;
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  border-radius: var(--radius);
+  color: #991b1b;
+  background: #fef2f2;
+  font-weight: 800;
 }
 
 .profile-root {
@@ -1304,7 +1391,8 @@ img {
 
   .feature-grid,
   .form-grid.two,
-  .social-grid {
+  .social-grid,
+  .dashboard-stats {
     grid-template-columns: 1fr;
   }
 
@@ -1359,7 +1447,8 @@ img {
 
   .form-section,
   .preview-card,
-  .qr-result-card {
+  .qr-result-card,
+  .login-card {
     padding: 15px;
   }
 

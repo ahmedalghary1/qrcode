@@ -147,6 +147,7 @@
     if (!list || !empty) return;
 
     const profiles = loadDraftsFromLocalStorage();
+    renderDashboardStats(profiles);
     empty.hidden = profiles.length > 0;
     list.innerHTML = "";
 
@@ -170,12 +171,33 @@
           <a class="btn btn-secondary btn-sm" href="create.html?draft=${encodeURIComponent(item.id)}"><i class="fa-solid fa-pen"></i> تعديل</a>
           <button type="button" class="btn btn-secondary btn-sm" data-action="copy" data-id="${QRSmart.escapeHTML(item.id)}"><i class="fa-solid fa-copy"></i> نسخ</button>
           <button type="button" class="btn btn-secondary btn-sm" data-action="download" data-id="${QRSmart.escapeHTML(item.id)}"><i class="fa-solid fa-download"></i> QR</button>
+          <button type="button" class="btn btn-secondary btn-sm" data-action="export" data-id="${QRSmart.escapeHTML(item.id)}"><i class="fa-solid fa-file-export"></i> JSON</button>
           <a class="btn btn-primary btn-sm" href="${QRSmart.escapeHTML(item.profileUrl)}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> فتح</a>
           <button type="button" class="btn btn-danger btn-sm" data-action="delete" data-id="${QRSmart.escapeHTML(item.id)}"><i class="fa-solid fa-trash"></i> حذف</button>
         </div>
       `;
       list.appendChild(row);
     });
+  }
+
+  function renderDashboardStats(profiles) {
+    const users = document.getElementById("statsUsers");
+    const profileCount = document.getElementById("statsProfiles");
+    const linkCount = document.getElementById("statsLinks");
+    const lastUpdate = document.getElementById("statsLastUpdate");
+    if (!users || !profileCount || !linkCount || !lastUpdate) return;
+
+    const uniqueUsers = new Set(
+      profiles
+        .map((item) => String(item.title || "").trim().toLowerCase())
+        .filter(Boolean)
+    );
+    const totalLinks = profiles.reduce((total, item) => total + Number(item.linkCount || 0), 0);
+
+    users.textContent = String(uniqueUsers.size || profiles.length);
+    profileCount.textContent = String(profiles.length);
+    linkCount.textContent = String(totalLinks);
+    lastUpdate.textContent = profiles.length ? formatDate(profiles[0].updatedAt || profiles[0].createdAt) : "-";
   }
 
   function downloadDashboardQr(item) {
@@ -245,6 +267,11 @@
 
       if (action === "download") {
         downloadDashboardQr(item);
+      }
+
+      if (action === "export") {
+        QRSmart.exportJSON(item.data);
+        QRSmart.showToast("تم تحميل ملف JSON.", "success");
       }
 
       if (action === "delete") {
