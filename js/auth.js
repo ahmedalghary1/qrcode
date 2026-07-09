@@ -3,7 +3,7 @@
 
   const AUTH_KEY = "qrsmart.auth.session";
   const AUTH_USER = "admin";
-  const AUTH_PASSWORD_HASH = "912591460e84006508cc88bdc194ea308a37c0be603e0d0f183b4fd83eec7707";
+  const AUTH_PASSWORD_HASH = "cf9b6ee6b4d2cb3d1776d2a3e8f4db8a4c554b5b3f4f400135b905ec6d274f48";
   const SESSION_HOURS = 12;
   const script = document.currentScript;
   const mode = script && script.dataset ? script.dataset.auth : "";
